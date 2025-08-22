@@ -25,7 +25,7 @@ export default function TwoSectionLayout() {
                         {/* Main Image */}
                         <Box
                             component="img"
-                            src="/public/images/video-img.jpg"
+                            src="/images/video-img.jpg"
                             alt="Preview"
                             sx={{
                                 width: "100%",

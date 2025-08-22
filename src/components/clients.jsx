@@ -7,12 +7,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 const ClientsSection = () => {
   const logos = [
-    "/public/clientsImg/1.png",
-    "/public/clientsImg/2.png",
-    "/public/clientsImg/3.png",
-    "/public/clientsImg/4.png",
-    "/public/clientsImg/5.png",
-    "/public/clientsImg/6.png",
+    "/clientsImg/1.png",
+    "/clientsImg/2.png",
+    "/clientsImg/3.png",
+    "/clientsImg/4.png",
+    "/clientsImg/5.png",
+    "/clientsImg/6.png",
   ];
 
   const settings = {
