@@ -19,32 +19,32 @@ const team = [
   {
     name: "Ashley Sanchez",
     role: "Architect",
-    img: "/public/images/archit.jpg",
+    img: "/images/archit.jpg",
   },
   {
     name: "Juliana Bryant",
     role: "Designer",
-    img: "/public/images/archit02.jpg",
+    img: "/images/archit02.jpg",
   },
   {
     name: "Shirley Gibson",
     role: "Engineer",
-    img:"/public/images/eng2.jpg",
+    img:"/images/eng2.jpg",
   },
   {
     name: "Michael Green",
     role: "Architect",
-    img: "/public/images/archit1.jpg",
+    img: "/images/archit1.jpg",
   },
   {
     name: "Sophia Turner",
     role: "Designer",
-    img: "/public/images/eng-3.webp",
+    img: "/images/eng-3.webp",
   },
   {
     name: "David Kim",
     role: "Engineer",
-    img: "/public/images/eng3.webp",
+    img: "/images/eng3.webp",
   },
 ];
 
