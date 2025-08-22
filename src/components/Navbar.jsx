@@ -86,7 +86,10 @@ export default function Navbar() {
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* LEFT SIDE - Logo + Contact */}
           <Stack direction="row" alignItems="center" spacing={3}>
-           <img src="/glogonew.webp" alt="logo" style={{height:'90px',width:'90px'}} />
+             <a href="/">
+              <img src="/glogonew.webp" alt="logo" style={{height:'90px',width:'90px'}} />
+             </a>
+          
             {!isMobile && (
               <>
                 <Stack direction="row" alignItems="center" spacing={1}>
@@ -221,7 +224,7 @@ export default function Navbar() {
       </AppBar>
 
       {/* MOBILE DRAWER */}
-      <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <Box sx={{ width: 230 }} role="presentation">
           <List>
             {navItems.map((item) => (

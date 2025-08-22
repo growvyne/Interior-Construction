@@ -2,10 +2,12 @@ import { useState } from "react";
 import {
     Box, Grid, Typography, Button, Card, CardContent, Container, Modal,
     IconButton,
+    useMediaQuery
 } from "@mui/material";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 export default function TwoSectionLayout() {
+      const isMobile = useMediaQuery("(max-width:600px)");
     const [open, setOpen] = useState(false);
     return (
         <Box sx={{ flexGrow: 1, py: 8, px: 4, }}>
@@ -29,7 +31,7 @@ export default function TwoSectionLayout() {
                             alt="Preview"
                             sx={{
                                 width: "100%",
-                                height: 500,
+                                height:isMobile? 400:500,
                                 objectFit: "cover",
                                 borderRadius: 2,
                                 boxShadow: 3,

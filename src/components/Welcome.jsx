@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Grid, Typography, Button, Card, CardContent, Container } from "@mui/material";
+import { Box, Grid, Typography, Button, Card, CardContent, Container,useMediaQuery } from "@mui/material";
 
 export default function TwoSectionLayout() {
+    const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <Box sx={{ flexGrow: 1, py: 8, px: 4,background:'#F9F3EA' }}>
       <Container>
@@ -60,7 +61,7 @@ export default function TwoSectionLayout() {
         alt="Preview"
         sx={{
           width: "100%",
-          height: 550,
+          height:isMobile? 350:550,
           objectFit: "cover",
           borderRadius: 2,
           transition: "all 0.9s ease",

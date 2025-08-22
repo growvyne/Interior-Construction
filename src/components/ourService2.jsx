@@ -6,6 +6,7 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  useMediaQuery
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CountUp from "react-countup";
@@ -45,7 +46,7 @@ const services = [
 
 export default function ServiceSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-
+   const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <Box
       sx={{

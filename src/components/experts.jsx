@@ -8,7 +8,8 @@ import {
   IconButton,
   Tabs,
   Tab,
-  Container
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { Facebook, Twitter, LinkedIn, Instagram } from "@mui/icons-material";
 import Slider from "react-slick";
@@ -29,7 +30,7 @@ const team = [
   {
     name: "Shirley Gibson",
     role: "Engineer",
-    img:"/images/eng2.jpg",
+    img: "/images/eng2.jpg",
   },
   {
     name: "Michael Green",
@@ -53,10 +54,25 @@ const filters = ["All", "Architect", "Designer", "Engineer"];
 const TeamSection = () => {
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const filteredTeam =
-    activeFilter === "All"
-      ? team
-      : team.filter((member) => member.role === activeFilter);
+  // Trim role strings and compare to activeFilter trimmed to avoid whitespace issues
+const filteredTeam =
+  activeFilter === "All"
+    ? team
+    : team.filter((member) => member.role === activeFilter);
+
+
+  // Debugging log
+  console.log(`Active filter: ${activeFilter}`, filteredTeam);
+
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down("sm")); // <600px
+  const isSm = useMediaQuery(theme.breakpoints.between("sm", "md")); // 600-900px
+  const isMd = useMediaQuery(theme.breakpoints.between("md", "lg")); // 900-1200px
+
+  let slidesToShow = 4;
+  if (isMd) slidesToShow = 3;
+  if (isSm) slidesToShow = 2;
+  if (isXs) slidesToShow = 1;
 
   const sliderSettings = {
     dots: true,
@@ -64,11 +80,22 @@ const TeamSection = () => {
     autoplay: true,
     autoplaySpeed: 2500,
     speed: 600,
-    slidesToShow: 4,
+    slidesToShow,
     slidesToScroll: 1,
+    arrows: false,
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 600, settings: { slidesToShow: 1 } },
+      {
+        breakpoint: 1200,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 900,
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 600,
+        settings: { slidesToShow: 1 },
+      },
     ],
   };
 
@@ -77,13 +104,23 @@ const TeamSection = () => {
       {/* Heading */}
       <Typography
         variant="overline"
-        sx={{ color: "gray", fontWeight: 500, letterSpacing: 2,fontFamily: "Marcellus, serif"}}
+        sx={{
+          color: "gray",
+          fontWeight: 500,
+          letterSpacing: 2,
+          fontFamily: "Marcellus, serif",
+        }}
       >
         MEET OUR TEAM
       </Typography>
       <Typography
         variant="h3"
-        sx={{ fontWeight: "bold", mb: 4, fontFamily: "Marcellus, serif" }}
+        sx={{
+          fontWeight: "bold",
+          mb: 4,
+          fontFamily: "Marcellus, serif",
+          fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+        }}
       >
         Best Experts
       </Typography>
@@ -98,11 +135,11 @@ const TeamSection = () => {
         sx={{
           mb: 6,
           "& .MuiTab-root": {
-            fontSize: "16px",
+            fontSize: { xs: "12px", sm: "14px", md: "16px" },
             fontWeight: 500,
             textTransform: "none",
             fontFamily: "Marcellus, serif",
-            px: 3,
+            px: { xs: 1, sm: 2, md: 3 },
             transition: "color 0.3s ease",
           },
           "& .Mui-selected": {
@@ -119,114 +156,116 @@ const TeamSection = () => {
       {activeFilter === "All" ? (
         <Slider {...sliderSettings}>
           {filteredTeam.map((member, index) => (
-            <Box key={index} px={2}>
+            <Box key={index} px={{ xs: 1, sm: 2 }}>
               <TeamCard member={member} />
             </Box>
           ))}
         </Slider>
+      ) : filteredTeam.length > 0 ? (
+        <Box sx={{ px: { xs: 2, sm: 0 } }}>
+          <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center">
+            {filteredTeam.map((member, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <TeamCard member={member} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       ) : (
-        <Grid container spacing={4} justifyContent="center">
-          {filteredTeam.map((member, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <TeamCard member={member} />
-            </Grid>
-          ))}
-        </Grid>
+        <Typography>No team members found for "{activeFilter}"</Typography>
       )}
     </Box>
   );
 };
 
 const TeamCard = ({ member }) => (
- <Container>
-    <Card
+  <Box
     sx={{
-
-      width: 300, // fixed width
-      height: 400, // fixed height
+      mx: "auto",
+      width: "100%",
       position: "relative",
-      overflow: "hidden",
-      borderRadius: "12px",
-      border: "2px solid transparent",
-      boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
-      transition: "all 0.6s ease",
-      margin: "0 auto", // centers inside slider/grid
-      display: "flex",
-      flexDirection: "column",
-    
-      "&:hover": {
-        transform: "translateY(-10px)",
-        border: "2px solid #249867",
-        boxShadow: "0 15px 35px rgba(0,0,0,0.3)",
-      },
+      aspectRatio: "3 / 4",
     }}
   >
-    {/* Image */}
-    <CardMedia
-      component="img"
-      image={member.img}
-      alt={member.name}
+    <Card
       sx={{
-        height: "100%", // fill the card
-        objectFit: "cover",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        zIndex: 0,
-      }}
-    />
-
-    {/* Overlay */}
-    <Box
-      sx={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
         width: "100%",
         height: "100%",
-        background:
-          "linear-gradient(to top, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0) 70%)",
-        color: "#fff",
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: 2,
+        border: "2px solid transparent",
+        boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
+        transition: "all 0.6s ease",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        opacity: 0,
-        transition: "opacity 0.5s ease",
-        "&:hover": { opacity: 1 },
-        pb: 3,
-        zIndex: 1,
+        "&:hover": {
+          transform: "translateY(-10px)",
+          border: "2px solid #249867",
+          boxShadow: "0 15px 35px rgba(0,0,0,0.3)",
+        },
       }}
     >
-      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-        {member.name}
-      </Typography>
-      <Typography
-        variant="body2"
-        sx={{ color: "#FFD700", fontWeight: 500 }}
-      >
-        {member.role}
-      </Typography>
+      <CardMedia
+        component="img"
+        image={member.img}
+        alt={member.name}
+        sx={{
+          height: "100%",
+          objectFit: "cover",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 0,
+        }}
+      />
 
-      {/* Social Icons */}
-      <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
-        <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
-          <Facebook />
-        </IconButton>
-        <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
-          <Twitter />
-        </IconButton>
-        <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
-          <LinkedIn />
-        </IconButton>
-        <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
-          <Instagram />
-        </IconButton>
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0) 70%)",
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          opacity: 0,
+          transition: "opacity 0.5s ease",
+          "&:hover": { opacity: 1 },
+          pb: 3,
+          zIndex: 1,
+        }}
+      >
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          {member.name}
+        </Typography>
+        <Typography variant="body2" sx={{ color: "#FFD700", fontWeight: 500 }}>
+          {member.role}
+        </Typography>
+
+        <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
+          <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+            <Facebook />
+          </IconButton>
+          <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+            <Twitter />
+          </IconButton>
+          <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+            <LinkedIn />
+          </IconButton>
+          <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+            <Instagram />
+          </IconButton>
+        </Box>
       </Box>
-    </Box>
-  </Card>
- </Container>
+    </Card>
+  </Box>
 );
 
 export default TeamSection;

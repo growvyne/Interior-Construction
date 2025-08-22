@@ -8,13 +8,12 @@ import {
   Link,
   TextField,
   Button,
+  useMediaQuery
 } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Facebook, Twitter, LinkedIn, Instagram } from "@mui/icons-material";
 
 const navItems = [
   "Home",
@@ -31,12 +30,12 @@ const navItems = [
 const serviceLinks = ["Real Estate Solutions", "Construction Materials", "Interior & Exterior Design", "Renovation and Remodeling","Project Management", "Civil Engineering & Construction","Building Development Service"   ];
 
  const images = [
-    "https://gramentheme.com/wp/konstic/wp-content/uploads/2024/08/gallery-5.jpg",
+    "https://media.istockphoto.com/id/493107912/photo/dubai-construction.jpg?b=1&s=612x612&w=0&k=20&c=qLsWK_y1FGN6sla7doXw83K5vYRb9rbVTMPh1jabZzE=",
     "https://thewebmax.org/hvillas/images/ab-bg.jpg",
-    "https://gramentheme.com/wp/konstic/wp-content/uploads/2024/08/gallery-1.jpg",
-    "https://gramentheme.com/wp/konstic/wp-content/uploads/2024/08/gallery-6.jpg",
-    "https://gramentheme.com/wp/konstic/wp-content/uploads/2024/08/gallery-3.jpg",
-    "https://gramentheme.com/wp/konstic/wp-content/uploads/2024/08/gallery-2.jpg",
+    "https://media.istockphoto.com/id/1366394118/photo/successful-engineers-having-meeting-on-construction-site.jpg?b=1&s=612x612&w=0&k=20&c=1g5Fr4ZKGuAyS7IGerWBpAMTEf883_B5VtzYc8Vih5o=",
+    "https://images.unsplash.com/photo-1581092583537-20d51b4b4f1b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2l2aWx8ZW58MHx8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1684497404598-6e844dff9cde?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2l2aWx8ZW58MHx8MHx8fDA%3D",
+    "https://plus.unsplash.com/premium_photo-1670360414483-64e6d9ba9038?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D",
 
   ];
 
@@ -49,6 +48,7 @@ const socialLinks = {
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+    const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -68,7 +68,8 @@ export default function Footer() {
         borderTop: "1px solid #444",
       }}
     >
-      <Container maxWidth="xl">
+      <Container>
+         <Container maxWidth="xl">
         {/* Responsive Grid with extra gap on desktop */}
         <Grid
           container
@@ -94,33 +95,29 @@ export default function Footer() {
             </Typography>
 
             <br />
-           
-            <Box sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
-              <LocationOnIcon sx={{ mr: 1, fontSize: 22 }} />
-              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
-                Street Number 372, Action Area I,IIF,Newtown, Kolkata, Chakpachuria, West Bengal 700160
-              </Typography>
-            </Box>
+            <p>Lorem ipsum dolor sit amet, iusto quando vocibus te vim no meaFar far away, lorem ipsum dolor sit amet, iusto quando.</p>
             <br />
-            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <PhoneIcon sx={{ mr: 1, fontSize: 22 }} />
-              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
-               033 4814 8430
-              </Typography>
-            </Box>
+           <Box sx={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+      <Facebook />
+    </IconButton>
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+      <Twitter />
+    </IconButton>
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+      <LinkedIn />
+    </IconButton>
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+      <Instagram />
+    </IconButton>
+  </Box>
            
-            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }} >
-              <EmailIcon sx={{ mr: 1, fontSize: 22 }} />
-              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
-                info@guininfracon.com
-              </Typography>
-            </Box>
           </Grid>
 
           {/* Pages + Services */}
           <Grid item size={{ xs: 12, md: 4 ,sm:8}} sx={{ px: { xs: 0, md: 3 } }}>
-            <Box sx={{ display: "flex", gap: 5 }}>
-              {/* Pages */}
+            {/* <Box sx={{ display: "flex", gap: 5 }}>
+            
               <Box>
                 <Typography
                   variant="h5"
@@ -149,7 +146,7 @@ export default function Footer() {
                 ))}
               </Box>
 &nbsp;
-              {/* Services */}
+             
               <Box>
                 <Typography
                   variant="h5"
@@ -177,7 +174,56 @@ export default function Footer() {
                   </Link>
                 ))}
               </Box>
+            </Box> */}
+        <Typography
+              variant="h5"
+              style={{ fontFamily: "Marcellus, serif" }}
+              sx={{ fontWeight: 600, mb: 3,textAlign:'justify'  }}
+            >
+             Address
+            </Typography>
+             <Box sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
+              <LocationOnIcon sx={{ mr: 1, fontSize: 22 }} />
+              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
+                Street Number 372, Action Area I,IIF,Newtown, Kolkata, Chakpachuria, West Bengal 700160
+              </Typography>
             </Box>
+            <br />
+            <hr />
+            <br />
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <PhoneIcon sx={{ mr: 1, fontSize: 22 }} />
+              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
+               033 4814 8430
+              </Typography>
+            </Box>
+            <br />
+           <hr />
+           <br />
+          <Box
+  component="a"
+  href="mailto:info@guininfracon.com"
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    mb: 1,
+    textDecoration: "none",
+    cursor: "pointer",
+    color: "inherit",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  }}
+>
+  <EmailIcon sx={{ mr: 1, fontSize: 22 }} />
+  <Typography
+    variant="body1"
+    color="grey.300"
+    sx={{ fontFamily: "Marcellus, serif" }}
+  >
+    info@guininfracon.com
+  </Typography>
+</Box>
           </Grid>
          
 
@@ -186,20 +232,20 @@ export default function Footer() {
             <Typography
               variant="h5"
               style={{ fontFamily: "Marcellus, serif" }}
-              sx={{ fontWeight: 600, mb: 1, textDecoration: "underline" }}
+              sx={{ fontWeight: 600, mb: 1, }}
             >
               Gallery
             </Typography>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
         {images.map((src, index) => (
-          <Grid item xs={12} sm={8} md={6} key={index}>
+          <Grid item size={{xs:12,md:4}} key={index}>
             <Box
               component="img"
               src={src}
               alt={`Gallery ${index + 1}`}
               sx={{
                 width: "100%",
-                height: 90,
+                height:isMobile?120: 90,
                 objectFit: "cover",
                 borderRadius: 0,
                 transition: "transform 0.4s ease, box-shadow 0.4s ease",
@@ -331,15 +377,42 @@ export default function Footer() {
 
        
       </Container>
+      </Container>
+     
       <hr />
-       <Typography
-          variant="body2"
-          color="grey.500"
-          align="center"
-          sx={{ pt: 3, pb: 2, fontSize: 13 ,fontFamily: "Marcellus, serif"}}
-        >
-          © {new Date().getFullYear()} Your Company. All rights reserved.
-        </Typography>
+     <Box
+  sx={{
+    backgroundColor: "#222",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    px: 3,
+    py: 2,
+    flexWrap: "wrap", // helps responsiveness on small screens
+    gap: 2,
+  }}
+>
+  <Typography
+    variant="body2"
+    color="grey.500"
+    sx={{ fontSize: 13, fontFamily: "Marcellus, serif" }}
+  >
+    © {new Date().getFullYear()} Your Company. All rights reserved.
+  </Typography>
+
+  <Box sx={{ display: "flex", gap: 2 }}>
+    <Link href="/terms-and-condition" underline="hover" color="inherit" sx={{ cursor: "pointer" }}>
+      Terms & Condition
+    </Link>
+    <Link href="/privacy-policy" underline="hover" color="inherit" sx={{ cursor: "pointer" }}>
+      Privacy Policy
+    </Link>
+    <Link href="/contact-us" underline="hover" color="inherit" sx={{ cursor: "pointer" }}>
+      Contact Us
+    </Link>
+  </Box>
+</Box>
+
     </Box>
   );
 }

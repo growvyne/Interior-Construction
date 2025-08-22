@@ -4,10 +4,13 @@ import Services from '../src/components/Service'
 import Welcome from '../src/components/Welcome'
 import Ourinfo from '../src/components/Ourinfo'
 import ServiceCard from '../src/components/ServiceCard'
+import CounterSection from '../src/components/counter'
 import Clients from '../src/components/clients'
 import OurService2 from '../src/components/ourService2'
 import Bgvideo from '../src/components/bgvideo'
 import Experts from '../src/components/experts'
+import Experts2 from '../src/components/experts2'
+import Prefers from '../src/components/Prefer'
 import ContactUs from '../src/components/Contactusform'
 import Footer from '../src/components/Footer'
 const Home = () => {
@@ -22,14 +25,16 @@ const Home = () => {
       <Ourinfo/>
       <ServiceCard/>
 
-     
+     <CounterSection/>
       <Clients/>
 
       <br />
       <br />
       &nbsp;&nbsp;
       <OurService2/>
-      <Experts/>
+      {/* <Experts/> */}
+      <Experts2/>
+      <Prefers/>
       <Bgvideo/>
       <ContactUs/>
       <Footer/>
