@@ -90,7 +90,7 @@ const CounterSection = () => {
                 mb: 1,
               }}
             >
-              <CountUp end={item.number} duration={10} />
+              <CountUp end={item.number} duration={12} />
             </Typography>
             <Typography
               sx={{

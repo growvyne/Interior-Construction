@@ -1,21 +1,51 @@
 import React, { useEffect } from "react";
 import { Box, Typography, keyframes } from "@mui/material";
 
-const rotate = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+// Expanding circle ripple animation
+const ripple = keyframes`
+  0% {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
 `;
 
-const pulse = keyframes`
-  0%, 100% { transform: scale(1); color: #249867; }
-  50% { transform: scale(1.1); color: #50b57e; }
+// Logo slow continuous rotation
+const rotateLogo = keyframes`
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+`;
+
+// Text fade in and slide up
+const fadeSlideUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+// Background shimmer
+const shimmer = keyframes`
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 150% 0;
+  }
 `;
 
 const LoadingScreen = ({ onFinish }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (onFinish) onFinish();
-    }, 3500);
+    }, 4000);
     return () => clearTimeout(timer);
   }, [onFinish]);
 
@@ -25,57 +55,69 @@ const LoadingScreen = ({ onFinish }) => {
         position: "fixed",
         top: 0, left: 0,
         width: "100vw", height: "100vh",
-        bgcolor: "rgba(0, 0, 0, 0.85)",
-        display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
+        bgcolor: "#121212",
+        background: `linear-gradient(
+          135deg, 
+          #1f4037 0%, 
+          #99f2c8 100%
+         )`,
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         zIndex: 1500,
+        "&::before, &::after": {
+          content: '""',
+          position: "absolute",
+          borderRadius: "50%",
+          opacity: 0.3,
+          pointerEvents: "none",
+        },
+        "&::before": {
+          width: 300,
+          height: 300,
+          background: "radial-gradient(circle, #99f2c8, transparent 70%)",
+          top: -100,
+          left: -100,
+          animation: `${ripple} 3.5s infinite ease-in-out`,
+        },
+        "&::after": {
+          width: 200,
+          height: 200,
+          background: "radial-gradient(circle, #1f4037, transparent 60%)",
+          bottom: -80,
+          right: -80,
+          animation: `${ripple} 3.5s 1.5s infinite ease-in-out`,
+        },
       }}
     >
-      {/* Spinner with bright glowing shadow */}
+      {/* Logo with slow rotation */}
       <Box
+        component="img"
+        src="/glogonew.webp"
+        alt="logo"
         sx={{
-          position: "relative",
-          width: 120,
-          height: 120,
+          width: 110,
+          height: 110,
           borderRadius: "50%",
-          border: "12px solid transparent",
-          borderTopColor: "#3eea8f",
-          borderRightColor: "#62f6b3",
-          borderBottomColor: "#3eea8f",
-          borderLeftColor: "#62f6b3",
-          animation: `${rotate} 1.5s linear infinite`,
-
-          // Bright glowing shadow outside spinner
-          boxShadow: "0 0 15px 5px rgba(62, 234, 143, 0.7), 0 0 30px 10px rgba(98, 246, 179, 0.5)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "visible",
+          boxShadow: "0 0 18px #99f2c8",
+          animation: `${rotateLogo} 8s linear infinite`,
+          zIndex: 10,
         }}
-      >
-        {/* Centered logo inside spinner */}
-        <Box
-          component="img"
-          src="/glogonew.webp"
-          alt="logo"
-          sx={{
-            width: 90,
-            height: 90,
-            borderRadius: "50%",
-            boxShadow: "0 0 15px 3px rgba(62, 234, 143, 0.9)",
-          }}
-        />
-      </Box>
+      />
 
-      {/* Animated pulsating text */}
+      {/* Text fade in and slide up */}
       <Typography
         variant="h4"
         sx={{
+          color: "#99f2c8",
           mt: 4,
           fontWeight: "bold",
           fontFamily: "Marcellus, serif",
-          animation: `${pulse} 2.5s ease-in-out infinite`,
-          color: "#3eea8f",
+          animation: `${fadeSlideUp} 1.8s ease forwards`,
+          opacity: 0,
+          zIndex: 10,
         }}
       >
         Guininfracon
