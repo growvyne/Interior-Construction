@@ -24,7 +24,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link, useLocation } from "react-router-dom";
@@ -54,7 +54,7 @@ const navItems = [
   //     { label: "Exterior", path: "/services/exterior" },
   //   ],
   // },
-  { label: "Our Team", path: "/news" },
+  // { label: "Our Team", path: "/news" },
   { label: "Blog", path: "/shop" },
   { label: "Contact", path: "/contact" },
 ];
@@ -87,7 +87,7 @@ export default function Navbar() {
           {/* LEFT SIDE - Logo + Contact */}
           <Stack direction="row" alignItems="center" spacing={3}>
              <a href="/">
-              <img src="/glogonew.webp" alt="logo" style={{height:'90px',width:'90px'}} />
+              <img src="/images/logo.png" alt="logo" style={{height:'90px',width:'90px'}} />
              </a>
           
             {!isMobile && (
@@ -199,6 +199,16 @@ export default function Navbar() {
                   </MenuItem>
                 ))}
               </Menu>
+              <Button
+                variant="contained"
+                color="primary"
+                href="/"
+                sx={{ borderRadius: 20, textTransform: "none",fontFamily: "Marcellus, serif", 
+                  "&:hover": { backgroundColor: "#CD9727" }
+                }}
+              >
+               Brochure
+              </Button>
 
               {/* Divider + Icons */}
               <Stack
@@ -210,9 +220,9 @@ export default function Navbar() {
                 <IconButton color="primary" onClick={() => setShowSearch(true)}>
                   <SearchIcon />
                 </IconButton>
-                <IconButton color="primary">
+                {/* <IconButton color="primary">
                   <ShoppingCartIcon />
-                </IconButton>
+                </IconButton> */}
               </Stack>
             </Stack>
           ) : (
@@ -226,6 +236,7 @@ export default function Navbar() {
       {/* MOBILE DRAWER */}
       <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <Box sx={{ width: 230 }} role="presentation">
+          
           <List>
             {navItems.map((item) => (
               <React.Fragment key={item.label}>
@@ -248,6 +259,7 @@ export default function Navbar() {
                   }}
                 >
                   <ListItemText primary={item.label} />
+                  
                 </ListItem>
                 {item.submenu && (
                   <List sx={{ pl: 4 }}>
@@ -274,13 +286,30 @@ export default function Navbar() {
                         <ListItemText primary={sub.label} />
                       </ListItem>
                     ))}
+                    
                   </List>
+                  
+                  
                 )}
                 <Divider />
               </React.Fragment>
             ))}
           </List>
+          <div style={{display:'flex', justifyContent:'center', alignItems:'center', paddingBottom:'20px'}}>
+            <Button
+      
+                variant="contained"
+                color="primary"
+                href="/"
+                sx={{ borderRadius: 20, textTransform: "none",fontFamily: "Marcellus, serif", padding:'10pz',
+                  "&:hover": { backgroundColor: "#CD9727" }
+                }}
+              >
+               Brochure
+              </Button>
+          </div>
         </Box>
+        
       </Drawer>
 
       {/* SEARCH OVERLAY */}

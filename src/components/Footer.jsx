@@ -98,16 +98,16 @@ export default function Footer() {
             <p>Lorem ipsum dolor sit amet, iusto quando vocibus te vim no meaFar far away, lorem ipsum dolor sit amet, iusto quando.</p>
             <br />
            <Box sx={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}>
       <Facebook />
     </IconButton>
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+    {/* <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
       <Twitter />
-    </IconButton>
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+    </IconButton> */}
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}>
       <LinkedIn />
     </IconButton>
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
+    <IconButton sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}>
       <Instagram />
     </IconButton>
   </Box>
