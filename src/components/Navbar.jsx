@@ -87,7 +87,7 @@ export default function Navbar() {
           {/* LEFT SIDE - Logo + Contact */}
           <Stack direction="row" alignItems="center" spacing={3}>
              <a href="/">
-              <img src="/images/logo.png" alt="logo" style={{height:'90px',width:'90px'}} />
+              <img src="/images/logo.png" alt="logo" style={{height:'100px',width:'120px',objectFit:'contain'}} />
              </a>
           
             {!isMobile && (
@@ -200,15 +200,21 @@ export default function Navbar() {
                 ))}
               </Menu>
               <Button
-                variant="contained"
-                color="primary"
-                href="/"
-                sx={{ borderRadius: 20, textTransform: "none",fontFamily: "Marcellus, serif", 
-                  "&:hover": { backgroundColor: "#CD9727" }
-                }}
-              >
-               Brochure
-              </Button>
+  variant="contained"
+  color="primary"
+  href="/documents/GUIN-INFRA-BROCHURE.pdf"   // put your PDF path here
+  target="_blank"
+  rel="noopener noreferrer"
+  sx={{
+    borderRadius: 20,
+    textTransform: "none",
+    fontFamily: "Marcellus, serif",
+    "&:hover": { backgroundColor: "#CD9727" }
+  }}
+>
+  Brochure
+</Button>
+
 
               {/* Divider + Icons */}
               <Stack
