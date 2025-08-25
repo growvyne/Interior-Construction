@@ -12,18 +12,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5000); // 5 seconds splash
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(false), 5000); // 5 seconds splash
+  //   return () => clearTimeout(timer);
+  // }, []);
 
-  if (loading) {
-    return <LoadingScreen />; // Show loading splash first
-  }
+  // if (loading) {
+  //   return <LoadingScreen />; 
+  // }
 
-  // Show app content after loading finishes
+ 
   return (
     <>
       <Navbar />
