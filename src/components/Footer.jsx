@@ -40,7 +40,7 @@ const serviceLinks = ["Real Estate Solutions", "Construction Materials", "Interi
   ];
 
 const socialLinks = {
-  facebook: "https://facebook.com",
+  facebook: "https://www.facebook.com/share/19QJmEdUa5/",
   twitter: "https://twitter.com",
   instagram: "https://instagram.com",
 };
@@ -98,19 +98,36 @@ export default function Footer() {
             <p>Lorem ipsum dolor sit amet, iusto quando vocibus te vim no meaFar far away, lorem ipsum dolor sit amet, iusto quando.</p>
             <br />
            <Box sx={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}>
-      <Facebook />
-    </IconButton>
-    {/* <IconButton sx={{ color: "#fff", "&:hover": { color: "#FFD700" } }}>
-      <Twitter />
-    </IconButton> */}
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}>
-      <LinkedIn />
-    </IconButton>
-    <IconButton sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}>
-      <Instagram />
-    </IconButton>
-  </Box>
+  <IconButton
+    component="a"
+    href={socialLinks.facebook}
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}
+  >
+    <Facebook />
+  </IconButton>
+
+  <IconButton
+    component="a"
+    href={socialLinks.linkedin}
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}
+  >
+    <LinkedIn />
+  </IconButton>
+
+  <IconButton
+    component="a"
+    href={socialLinks.instagram}
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{ color: "#fff", "&:hover": { color: "#CD9727" } }}
+  >
+    <Instagram />
+  </IconButton>
+</Box>
            
           </Grid>
 

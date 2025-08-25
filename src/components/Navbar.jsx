@@ -45,7 +45,19 @@ const navItems = [
           { label: "Renovation and Remodeling", path: "/pages/" },
     ],
   },
-  { label: "Project", path: "/project" },
+   {
+    label: "Projects",
+    path: "/pages",
+    submenu: [
+       { label: "Past Projects", path: "/pages/" },
+      { label: "OnGoing Projects", path: "/" },
+      { label: "Upcoming Projects", path: "/pages/" },
+  
+    ],
+  },
+  { label: "Project", path: "/project"
+    
+   },
   // {
   //   label: "Services",
   //   path: "/services",
@@ -87,7 +99,7 @@ export default function Navbar() {
           {/* LEFT SIDE - Logo + Contact */}
           <Stack direction="row" alignItems="center" spacing={3}>
              <a href="/">
-              <img src="/images/logo.png" alt="logo" style={{height:'100px',width:'120px',objectFit:'contain'}} />
+              <img src="/images/GUIN LOGO.png" alt="logo" style={{height:'120px',width:'120px',objectFit:"obtain"}} />
              </a>
           
             {!isMobile && (
@@ -202,7 +214,7 @@ export default function Navbar() {
               <Button
   variant="contained"
   color="primary"
-  href="/documents/GUIN-INFRA-BROCHURE.pdf"   // put your PDF path here
+  href="/documents/GUIN-INFRA-BROCHURE.pdf"  
   target="_blank"
   rel="noopener noreferrer"
   sx={{
@@ -306,7 +318,10 @@ export default function Navbar() {
       
                 variant="contained"
                 color="primary"
-                href="/"
+                 href="/documents/GUIN-INFRA-BROCHURE.pdf"  
+  target="_blank"
+  rel="noopener noreferrer"
+               
                 sx={{ borderRadius: 20, textTransform: "none",fontFamily: "Marcellus, serif", padding:'10pz',
                   "&:hover": { backgroundColor: "#CD9727" }
                 }}

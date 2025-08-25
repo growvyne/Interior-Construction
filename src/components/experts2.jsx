@@ -70,10 +70,10 @@ const TeamSection = () => {
                 position: "relative",
                 overflow: "hidden",
                 border: "1px solid #ddd",
-                borderRadius: "4px",
+                borderRadius: "1px",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  border: "2px solid #f57c00",
+                  border: "10px solid #f57c00",
                 },
                 "&:hover .overlay": {
                   opacity: 1,

@@ -13,6 +13,7 @@ import {
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { Padding } from "@mui/icons-material";
 const ImageTextSlider = () => {
   const images = [
     "https://thewebmax.org/hvillas/images/main-slider/slider1/pic3.png",
@@ -123,53 +124,104 @@ const ImageTextSlider = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          style={{ backgroundColor: "#F9F3EA" }}
+          style={{ backgroundColor: "#F9F3EA",backgroundImage: "url('https://thewebmax.org/hvillas/images/main-slider/slider1/light-dott-pattern.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}
           sx={{ textAlign: "center", p: { xs: 2, md: 4 } }}
         >
-          <Box sx={{ width: { xs: "100%", md: "80%" } }}>
-            <Slider ref={textSliderRef} {...settings}>
-              {textSlides.map((item, i) => (
-                <Box key={i}>
-                  <Typography
-                  style={{  fontFamily: "Marcellus, serif",}}
-                    variant={isMobile ? "h5" : "h3"}
-                    fontWeight="bold"
-                    gutterBottom
-                  >
-                    {item.heading}
-                  </Typography>
-                  <Typography
-                  style={{  fontFamily: "Marcellus, serif",}}
-                    variant={isMobile ? "body1" : "h6"}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {item.subHeading}
-                  </Typography>
-                  <Button
-                  style={{  fontFamily: "Marcellus, serif",}}
-                    variant="outlined"
-                    size={isMobile ? "medium" : "large"}
-                    sx={{
-                      mt: 2,
-                      borderRadius: "20px",
-                      border: "2px solid #ff9800",
-                      color: "#ff9800",
-                      fontWeight: "bold",
-                      transition: "all 0.3s ease",
-                      "&:hover": {
-                        backgroundColor: "#ff9800",
-                        color: "#fff",
-                        borderColor: "#ff9800",
-                      },
-                    }}
-                  >
-                    Read More
-                  </Button>
-                </Box>
-              ))}
-            </Slider>
-          </Box>
+     <Box
+  sx={{
+    width: { xs: "100%", md: "80%" },
+    position: "relative",
+
+    // Top-left corner
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "50px", // horizontal
+      height: "5px", // thickness
+      backgroundColor: "#ff9800",
+    },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "5px", // vertical
+      height: "50px",
+      backgroundColor: "#ff9800",
+    },
+
+    // Bottom-right corner (extra elements inside Box)
+    "& .cornerX": {
+      content: '""',
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      width: "50px", // horizontal
+      height: "5px", // thickness
+      backgroundColor: "#ff9800",
+    },
+    "& .cornerY": {
+      content: '""',
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      width: "5px", // vertical
+      height: "50px",
+      backgroundColor: "#ff9800",
+    },
+  }}
+>
+  {/* extra spans for bottom-right */}
+  <span className="cornerX"></span>
+  <span className="cornerY"></span>
+
+  <Slider ref={textSliderRef} {...settings}>
+    {textSlides.map((item, i) => (
+      <Box key={i} style={{ padding: isMobile ? "20px" : "40px" }}>
+        <Typography
+          style={{ fontFamily: "Marcellus, serif", padding: "30px" }}
+          variant={isMobile ? "h5" : "h3"}
+          fontWeight="bold"
+          gutterBottom
+        >
+          {item.heading}
+        </Typography>
+        <Typography
+          style={{ fontFamily: "Marcellus, serif" }}
+          variant={isMobile ? "body1" : "h6"}
+          color="text.secondary"
+          gutterBottom
+        >
+          {item.subHeading}
+        </Typography>
+        <Button
+          style={{ fontFamily: "Marcellus, serif" }}
+          variant="outlined"
+          size={isMobile ? "medium" : "large"}
+          sx={{
+            mt: 2,
+            borderRadius: "20px",
+            border: "2px solid #ff9800",
+            color: "#ff9800",
+            fontWeight: "bold",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              backgroundColor: "#ff9800",
+              color: "#fff",
+              borderColor: "#ff9800",
+            },
+          }}
+        >
+          Read More
+        </Button>
+      </Box>
+    ))}
+  </Slider>
+</Box>
+
+
         </Grid>
       </Grid>
 
