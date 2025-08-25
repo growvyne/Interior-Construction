@@ -55,9 +55,7 @@ const navItems = [
   
     ],
   },
-  { label: "Project", path: "/project"
-    
-   },
+  //{ label: "Project", path: "/project"},
   // {
   //   label: "Services",
   //   path: "/services",
@@ -105,11 +103,11 @@ export default function Navbar() {
             {!isMobile && (
               <>
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <PhoneIcon fontSize="small" color="primary" />
+                  <PhoneIcon fontSize="small" style={{color:'#FF9800'}} />
                   <Typography variant="body2" style={{  fontFamily: "Marcellus, serif",}}>+ 033 4814 8430</Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <EmailIcon fontSize="small" color="primary" />
+                  <EmailIcon fontSize="small" style={{color:'#FF9800'}} />
                   <Typography variant="body2" style={{  fontFamily: "Marcellus, serif",}}>info@guininfracon.com</Typography>
                 </Stack>
               </>
@@ -213,15 +211,17 @@ export default function Navbar() {
               </Menu>
               <Button
   variant="contained"
-  color="primary"
+ 
   href="/documents/GUIN-INFRA-BROCHURE.pdf"  
   target="_blank"
   rel="noopener noreferrer"
   sx={{
+     backgroundColor:"black",
     borderRadius: 20,
+    fontSize:"14px",
     textTransform: "none",
     fontFamily: "Marcellus, serif",
-    "&:hover": { backgroundColor: "#CD9727" }
+    "&:hover": { backgroundColor: "orange" }
   }}
 >
   Brochure
@@ -317,7 +317,7 @@ export default function Navbar() {
             <Button
       
                 variant="contained"
-                color="primary"
+                color="#FF9800"
                  href="/documents/GUIN-INFRA-BROCHURE.pdf"  
   target="_blank"
   rel="noopener noreferrer"

@@ -79,46 +79,8 @@ const ImageTextSlider = () => {
           minHeight: "50vh",
         }}
       >
-        {/* Left Grid - Image Slider */}
-        <Grid item size={{ xs: 12, md: 6 }} sx={{ backgroundColor: "#F1EBE3" }}>
-          <Box
-            sx={{
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              p: { xs: 2, md: 4 },
-            }}
-          >
-            <Slider ref={imageSliderRef} {...settings} style={{ width: "100%" }}>
-              {images.map((src, i) => (
-                <Box
-                  key={i}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: { xs: "250px", md: "100%" },
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={src}
-                    alt={`slide-${i}`}
-                    sx={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      objectFit: "contain",
-                    }}
-                  />
-                </Box>
-              ))}
-            </Slider>
-          </Box>
-        </Grid>
 
-        {/* Right Grid - Text Slider */}
-        <Grid
+          <Grid
           item
           size={{ xs: 12, md: 6 }}
           display="flex"
@@ -223,6 +185,46 @@ const ImageTextSlider = () => {
 
 
         </Grid>
+        {/* Left Grid - Image Slider */}
+        <Grid item size={{ xs: 12, md: 6 }} sx={{ backgroundColor: "#F1EBE3" }}>
+          <Box
+            sx={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              p: { xs: 2, md: 4 },
+            }}
+          >
+            <Slider ref={imageSliderRef} {...settings} style={{ width: "100%" }}>
+              {images.map((src, i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: { xs: "250px", md: "100%" },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={src}
+                    alt={`slide-${i}`}
+                    sx={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Box>
+              ))}
+            </Slider>
+          </Box>
+        </Grid>
+
+        {/* Right Grid - Text Slider */}
+      
       </Grid>
 
       {/* Prev & Next Buttons (center-bottom under both grids) */}

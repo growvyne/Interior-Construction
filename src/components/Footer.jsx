@@ -83,7 +83,7 @@ export default function Footer() {
             <Box sx={{ mb: 2 }}>
                 <a href="/">
               <img
-                src="https://i.ibb.co/21SfCHK1/glogonew.webp" 
+               src="/images/GUIN LOGO.png" 
                 alt="logo"
                 style={{ height: 150, marginBottom: 8 }}
               />
