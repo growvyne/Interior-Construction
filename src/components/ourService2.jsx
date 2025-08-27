@@ -139,7 +139,7 @@ export default function ServiceSection() {
               >
                 <ListItemText
                   primaryTypographyProps={{
-                   fontSize:'30px',
+                   fontSize:isMobile?'20px':'30px',
                     fontWeight: "400",
                     fontFamily: "Marcellus, serif",
                     color: "#fff",

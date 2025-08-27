@@ -8,7 +8,8 @@ import {
   Link,
   TextField,
   Button,
-  useMediaQuery
+  useMediaQuery,
+  Divider
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -68,7 +69,7 @@ export default function Footer() {
         borderTop: "1px solid #444",
       }}
     >
-      <Container>
+      <Container style={{height:isMobile?"auto":"70vh",padding:isMobile?"5px":"30px"}}>
          <Container maxWidth="xl">
         {/* Responsive Grid with extra gap on desktop */}
         <Grid
@@ -83,7 +84,7 @@ export default function Footer() {
             <Box sx={{ mb: 2 }}>
                 <a href="/">
               <img
-               src="/images/GUIN LOGO.png" 
+               src="/images/logonew.png" 
                 alt="logo"
                 style={{ height: 150, marginBottom: 8 }}
               />
@@ -195,27 +196,28 @@ export default function Footer() {
         <Typography
               variant="h5"
               style={{ fontFamily: "Marcellus, serif" }}
-              sx={{ fontWeight: 600, mb: 3,textAlign:'justify'  }}
+              sx={{ fontWeight: 600, mb: 3,textAlign:'justify',textDecoration: "underline" ,color:'#FF9800'}}
             >
              Address
             </Typography>
              <Box sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
-              <LocationOnIcon sx={{ mr: 1, fontSize: 22 }} />
+              <LocationOnIcon sx={{ mr: 1, fontSize: 22,color:"#FF9800"}} />
               <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
                 Street Number 372, Action Area I,IIF,Newtown, Kolkata, Chakpachuria, West Bengal 700160
               </Typography>
             </Box>
             <br />
-            <hr />
+            <Divider sx={{ borderColor: "white", borderBottomWidth: 1 }} />
             <br />
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <PhoneIcon sx={{ mr: 1, fontSize: 22 }} />
-              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif" }}>
+              <PhoneIcon sx={{ mr: 1, fontSize: 22,color:"#FF9800" }} />
+              <Typography variant="body1" color="grey.300" style={{ fontFamily: "Marcellus, serif"}}>
                033 4814 8430
               </Typography>
             </Box>
             <br />
-           <hr />
+          <Divider sx={{ borderColor: "white", borderBottomWidth: 1 }} />
+
            <br />
           <Box
   component="a"
@@ -232,7 +234,7 @@ export default function Footer() {
     },
   }}
 >
-  <EmailIcon sx={{ mr: 1, fontSize: 22 }} />
+  <EmailIcon sx={{ mr: 1, fontSize: 22,color:"#FF9800" }} />
   <Typography
     variant="body1"
     color="grey.300"
@@ -249,7 +251,7 @@ export default function Footer() {
             <Typography
               variant="h5"
               style={{ fontFamily: "Marcellus, serif" }}
-              sx={{ fontWeight: 600, mb: 1, }}
+              sx={{ fontWeight: 600, mb: 1,textDecoration: "underline" ,color:'#FF9800'}}
             >
               Gallery
             </Typography>
@@ -414,7 +416,8 @@ export default function Footer() {
     color="grey.500"
     sx={{ fontSize: 13, fontFamily: "Marcellus, serif" }}
   >
-    © {new Date().getFullYear()} Your Company. All rights reserved.
+    {/* © {new Date().getFullYear()} Your Company. All rights reserved. */}
+    © 2025 Your Company. All rights reserved.
   </Typography>
 
   <Box sx={{ display: "flex", gap: 2 }}>

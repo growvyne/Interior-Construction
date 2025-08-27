@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -8,208 +8,319 @@ import {
   Stack,
   Button,
   Box,
-  TextField,
   Fade,
   Drawer,
   List,
   ListItem,
   ListItemText,
   Divider,
-  Menu,
-  MenuItem,
+  Collapse,
   useMediaQuery,
+  TextField,
+  Dialog,
+  DialogContent,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
-import SearchIcon from "@mui/icons-material/Search";
-// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CloseIcon from "@mui/icons-material/Close";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import { navbarNavigations } from "../components/data/navbarNavigations";
+import styles from "../components/navbar/navbar.module.css";
 
-const navItems = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  {
-    label: "Services",
-    path: "/pages",
-    submenu: [
-      { label: "Real Estate Solutions", path: "/" },
-      { label: "Construction Materials", path: "/pages/" },
-      { label: "Interior & Exterior Design", path: "/pages/" },
-       { label: "Civil Engineering & Construction", path: "/pages/" },
-        { label: "Project Management", path: "/pages/" },
-         { label: "Building Development Service", path: "/pages/" },
-          { label: "Renovation and Remodeling", path: "/pages/" },
-    ],
-  },
-   {
-    label: "Projects",
-    path: "/pages",
-    submenu: [
-       { label: "Past Projects", path: "/pages/" },
-      { label: "OnGoing Projects", path: "/" },
-      { label: "Upcoming Projects", path: "/pages/" },
-  
-    ],
-  },
-  //{ label: "Project", path: "/project"},
-  // {
-  //   label: "Services",
-  //   path: "/services",
-  //   submenu: [
-  //     { label: "Interior", path: "/services/interior" },
-  //     { label: "Exterior", path: "/services/exterior" },
-  //   ],
-  // },
-  // { label: "Our Team", path: "/news" },
-  { label: "Blog", path: "/shop" },
-  { label: "Contact", path: "/contact" },
-];
-
-export default function Navbar() {
-  const [showSearch, setShowSearch] = useState(false);
+const Navbar = () => {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [submenuItems, setSubmenuItems] = useState([]);
+  const [openMenus, setOpenMenus] = useState({}); // track dropdowns
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // open dropdown on hover
-  const handleMenuOpen = (event, submenu) => {
-    setAnchorEl(event.currentTarget);
-    setSubmenuItems(submenu);
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleMenu = (index) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setSubmenuItems([]);
-  };
+  const buttonClass =
+    location.pathname === "/" ? styles.nav_button : styles.nav_button1;
 
   return (
     <>
       <AppBar position="sticky" sx={{ backgroundColor: "#fff", color: "#000" }}>
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* LEFT SIDE - Logo + Contact */}
-          <Stack direction="row" alignItems="center" spacing={3}>
-             <a href="/">
-              <img src="/images/GUIN LOGO.png" alt="logo" style={{height:'120px',width:'120px',objectFit:"obtain"}} />
-             </a>
-          
-            {!isMobile && (
-              <>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <PhoneIcon fontSize="small" style={{color:'#FF9800'}} />
-                  <Typography variant="body2" style={{  fontFamily: "Marcellus, serif",}}>+ 033 4814 8430</Typography>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <EmailIcon fontSize="small" style={{color:'#FF9800'}} />
-                  <Typography variant="body2" style={{  fontFamily: "Marcellus, serif",}}>info@guininfracon.com</Typography>
-                </Stack>
-              </>
-            )}
-          </Stack>
+        <Toolbar
+          sx={{
+            px: 2,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {isMobile ? (
+            <>
+              {/* --- Mobile Left Side: Drawer Icon --- */}
+              <IconButton onClick={() => setDrawerOpen(true)}>
+                <MenuIcon sx={{ color: "#000" }} />
+              </IconButton>
 
-          {/* RIGHT SIDE - Menu */}
-          {!isMobile ? (
-            <Stack direction="row" alignItems="center" spacing={3}>
-              {navItems.map((item) =>
-                item.submenu ? (
-                  <Button
-                  style={{  fontFamily: "Marcellus, serif",}}
-                    key={item.label}
-                    color="inherit"
-                    endIcon={<ArrowDropDownIcon />}
-                    onMouseEnter={(e) => handleMenuOpen(e, item.submenu)}
-                    sx={{
-                      
-                      color:
-                        location.pathname === item.path
-                          ? theme.palette.primary.main
-                          : "inherit",
-                      backgroundColor:
-                        location.pathname === item.path ? "#f0f0f0" : "transparent",
-                      "&:hover": {
-                        color: theme.palette.primary.main,
-                        backgroundColor: "#f9f9f9",
-                      },
-                    }}
-                  >
-                    {item.label}
-                  </Button>
-                ) : (
-                  <Button
-                  style={{fontSize:"14px"}}
-                    key={item.label}
-                    color="inherit"
-                    component={Link}
-                    to={item.path}
-                    sx={{
-                      fontFamily: "Marcellus, serif",
-                      color:
-                        location.pathname === item.path
-                          ? theme.palette.primary.main
-                          : "inherit",
-                      backgroundColor:
-                        location.pathname === item.path ? "#f0f0f0" : "transparent",
-                      "&:hover": {
-                        color: theme.palette.primary.main,
-                        backgroundColor: "#f9f9f9",
-                      },
-                    }}
-                  >
-                    {item.label}
-                  </Button>
-                )
-              )}
+              {/* --- Mobile Center: Logo --- */}
+              <Link to="/">
+                <img
+                  src="/images/GUIN LOGO.png"
+                  alt="logo"
+                  style={{
+                    height: "70px",
+                    width: "70px",
+                    objectFit: "contain",
+                    cursor: "pointer",
+                  }}
+                />
+              </Link>
 
-              {/* Dropdown Menu */}
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                MenuListProps={{
-                  onMouseEnter: () => {}, // keep open inside
-                  onMouseLeave: handleMenuClose, // close on leaving
-                }}
-                PaperProps={{
-                  sx: {
-                    width: 260, // 👈 bigger dropdown container
-                    padding: 2,
-                    gap: 1,
-                  },
-                }}
+              {/* --- Mobile Right Side: Search Icon --- */}
+              <IconButton sx={{ color: "#000" }} onClick={() => setSearchOpen(true)}>
+                <SearchIcon />
+              </IconButton>
+
+              {/* --- Drawer Content --- */}
+              <Drawer
+                anchor="left"
+                open={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
               >
-                {submenuItems.map((sub) => (
-                  <MenuItem
-                  style={{fontSize:"14px"}}
-                    key={sub.label}
-                    component={Link}
-                    to={sub.path}
-                    onClick={handleMenuClose}
-                    sx={{
-                      fontFamily: "Marcellus, serif",
-                      color:
-                        location.pathname === sub.path
-                          ? theme.palette.primary.main
-                          : "inherit",
-                      backgroundColor:
-                        location.pathname === sub.path ? "#f0f0f0" : "transparent",
-                      "&:hover": {
-                        color: theme.palette.primary.main,
-                        backgroundColor: "#f9f9f9",
-                      },
+                <Box sx={{ width: 260, p: 2 }}>
+                  <Stack spacing={2}>
+                    {/* Contact Info */}
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                      <PhoneIcon sx={{ color: "#FF9800" }} />
+                      <Typography
+                        variant="body2"
+                        sx={{ fontFamily: "Marcellus, serif" }}
+                      >
+                        + 033 4814 8430
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                      <EmailIcon sx={{ color: "#FF9800" }} />
+                      <Typography
+                        variant="body2"
+                        sx={{ fontFamily: "Marcellus, serif" }}
+                      >
+                        info@guininfracon.com
+                      </Typography>
+                    </Stack>
+
+                    <Divider />
+
+                    {/* Navigation Links with Dropdowns */}
+                    <List>
+                      {navbarNavigations.map((menu, index) => (
+                        <React.Fragment key={index}>
+                          <ListItem
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              color:
+                                location.pathname === menu.path ? "#FF9800" : "#000",
+                            }}
+                          >
+                            {/* Clicking the label navigates */}
+                            <ListItemText
+                              primary={menu.label}
+                              primaryTypographyProps={{
+                                fontFamily: "Marcellus, serif",
+                                sx: { cursor: "pointer" },
+                              }}
+                              onClick={() => {
+                                navigate(menu.path);
+                                setDrawerOpen(false);
+                              }}
+                            />
+
+                            {/* Arrow only toggles submenu */}
+                            {menu.submenu &&
+                              (openMenus[index] ? (
+                                <KeyboardArrowUpIcon
+                                  onClick={() => toggleMenu(index)}
+                                  sx={{ cursor: "pointer" }}
+                                />
+                              ) : (
+                                <KeyboardArrowDownIcon
+                                  onClick={() => toggleMenu(index)}
+                                  sx={{ cursor: "pointer" }}
+                                />
+                              ))}
+                          </ListItem>
+
+                          {/* Submenu Collapse */}
+                          {menu.submenu && (
+                            <Collapse in={openMenus[index]} timeout="auto" unmountOnExit>
+                              <List component="div" disablePadding>
+                                {menu.submenu.map((child, childIndex) => (
+                                  <ListItem
+                                    button
+                                    key={childIndex}
+                                    sx={{ pl: 4 }}
+                                    onClick={() => {
+                                      navigate(child.path);
+                                      setDrawerOpen(false);
+                                    }}
+                                  >
+                                    <ListItemText
+                                      primary={child.label}
+                                      primaryTypographyProps={{
+                                        fontFamily: "Marcellus, serif",
+                                        fontSize: "14px",
+                                      }}
+                                    />
+                                  </ListItem>
+                                ))}
+                              </List>
+                            </Collapse>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </List>
+
+                    {/* Brochure Button */}
+                    <Button
+  variant="contained"
+ 
+  href="/documents/GUIN-INFRA-BROCHURE.pdf"  
+  target="_blank"
+  rel="noopener noreferrer"
+  sx={{
+     backgroundColor:"black",
+    borderRadius: 20,
+    fontSize:"14px",
+    textTransform: "none",
+    fontFamily: "Marcellus, serif",
+    "&:hover": { backgroundColor: "orange" }
+  }}
+>
+  Brochure
+</Button>
+
+                  </Stack>
+                </Box>
+              </Drawer>
+            </>
+          ) : (
+            <>
+              {/* --- Desktop Navbar --- */}
+              <Stack direction="row" alignItems="center" spacing={3}>
+                <Link to="/">
+                  <img
+                    src="/images/GUIN LOGO.png"
+                    alt="logo"
+                    style={{
+                      height: "110px",
+                      width: "110px",
+                      objectFit: "contain",
+                      cursor: "pointer",
                     }}
-                  >
-                    {sub.label}
-                  </MenuItem>
+                  />
+                </Link>
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <PhoneIcon fontSize="small" sx={{ color: "#FF9800" }} />
+                    <Typography
+                      variant="body2"
+                      sx={{ fontFamily: "Marcellus, serif", color: "#000" }}
+                    >
+                      + 033 4814 8430
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <EmailIcon fontSize="small" sx={{ color: "#FF9800" }} />
+                    <Typography
+                      variant="body2"
+                      sx={{ fontFamily: "Marcellus, serif", color: "#000" }}
+                    >
+                      info@guininfracon.com
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Stack>
+
+              <Box display="flex" alignItems="center" gap={3}>
+                {navbarNavigations.map((menu, index) => (
+                  <Box key={index} sx={{ position: "relative" }}>
+                    <Button
+                      variant="text"
+                      className={buttonClass}
+                      onClick={() => navigate(menu.path)}
+                      sx={{
+                        cursor: "pointer",
+                        color:
+                          location.pathname === menu.path
+                            ? "#FF9800"
+                            : hoverIndex === index
+                            ? "#FF9800"
+                            : "#000",
+                        textTransform: "none",
+                        fontSize: "16px",
+                        fontFamily: "Marcellus, serif",
+                      }}
+                      onMouseEnter={() => setHoverIndex(index)}
+                      onMouseLeave={() => setHoverIndex(null)}
+                    >
+                      {menu.label}
+                      {menu.submenu && (
+                        <KeyboardArrowDownIcon
+                          sx={{
+                            transform:
+                              hoverIndex === index ? "rotate(180deg)" : "rotate(0)",
+                            transition: "0.3s",
+                          }}
+                        />
+                      )}
+                    </Button>
+
+                    {/* Dropdown */}
+                    {menu.submenu && (
+                      <Fade in={hoverIndex === index} timeout={250}>
+                        <Box
+                          onMouseEnter={() => setHoverIndex(index)}
+                          onMouseLeave={() => setHoverIndex(null)}
+                          className={styles.chiled_menu}
+                        >
+                          {menu.submenu.map((child, childIndex) => (
+                            <Link
+                              to={child.path}
+                              key={childIndex}
+                              className={`${styles.link_button} ${
+                                location.pathname === child.path
+                                  ? styles.active_link
+                                  : ""
+                              }`}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </Box>
+                      </Fade>
+                    )}
+                  </Box>
                 ))}
-              </Menu>
-              <Button
+
+               <Button
   variant="contained"
  
   href="/documents/GUIN-INFRA-BROCHURE.pdf"  
@@ -228,151 +339,51 @@ export default function Navbar() {
 </Button>
 
 
-              {/* Divider + Icons */}
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={1}
-                sx={{ borderLeft: "1px solid #ccc", pl: 2 }}
-              >
-                <IconButton color="primary" onClick={() => setShowSearch(true)}>
-                  <SearchIcon />
-                </IconButton>
-                {/* <IconButton color="primary">
-                  <ShoppingCartIcon />
-                </IconButton> */}
-              </Stack>
-            </Stack>
-          ) : (
-            <IconButton onClick={() => setDrawerOpen(true)}>
-              <MenuIcon />
-            </IconButton>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <IconButton sx={{ color: "#000" }} onClick={() => setSearchOpen(true)}>
+                    <SearchIcon />
+                  </IconButton>
+                </Stack>
+              </Box>
+            </>
           )}
         </Toolbar>
       </AppBar>
 
-      {/* MOBILE DRAWER */}
-      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <Box sx={{ width: 230 }} role="presentation">
-          
-          <List>
-            {navItems.map((item) => (
-              <React.Fragment key={item.label}>
-                <ListItem
-                  button
-                  component={Link}
-                  to={item.path}
-                  onClick={() => setDrawerOpen(false)}
-                  sx={{
-                    color:
-                      location.pathname === item.path
-                        ? theme.palette.primary.main
-                        : "inherit",
-                    backgroundColor:
-                      location.pathname === item.path ? "#f0f0f0" : "transparent",
-                    "&:hover": {
-                      color: theme.palette.primary.main,
-                      backgroundColor: "#f9f9f9",
-                    },
-                  }}
-                >
-                  <ListItemText primary={item.label} />
-                  
-                </ListItem>
-                {item.submenu && (
-                  <List sx={{ pl: 4 }}>
-                    {item.submenu.map((sub) => (
-                      <ListItem
-                        button
-                        key={sub.label}
-                        component={Link}
-                        to={sub.path}
-                        onClick={() => setDrawerOpen(false)}
-                        sx={{
-                          color:
-                            location.pathname === sub.path
-                              ? theme.palette.primary.main
-                              : "inherit",
-                          backgroundColor:
-                            location.pathname === sub.path ? "#f0f0f0" : "transparent",
-                          "&:hover": {
-                            color: theme.palette.primary.main,
-                            backgroundColor: "#f9f9f9",
-                          },
-                        }}
-                      >
-                        <ListItemText primary={sub.label} />
-                      </ListItem>
-                    ))}
-                    
-                  </List>
-                  
-                  
-                )}
-                <Divider />
-              </React.Fragment>
-            ))}
-          </List>
-          <div style={{display:'flex', justifyContent:'center', alignItems:'center', paddingBottom:'20px'}}>
-            <Button
-      
-                variant="contained"
-                color="#FF9800"
-                 href="/documents/GUIN-INFRA-BROCHURE.pdf"  
-  target="_blank"
-  rel="noopener noreferrer"
-               
-                sx={{ borderRadius: 20, textTransform: "none",fontFamily: "Marcellus, serif", padding:'10pz',
-                  "&:hover": { backgroundColor: "#CD9727" }
-                }}
-              >
-               Brochure
-              </Button>
-          </div>
-        </Box>
-        
-      </Drawer>
-
-      {/* SEARCH OVERLAY */}
-      <Fade in={showSearch}>
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            bgcolor: "rgba(0,0,0,0.6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1300,
-          }}
-        >
-          <Box
-            sx={{
-              position: "relative",
-              width: "80%",
-              maxWidth: "500px",
-              bgcolor: "#fff",
-              borderRadius: 2,
-              boxShadow: 6,
-              p: 2,
-              display: "flex",
-              alignItems: "center",
-            }}
+      {/* --- Search Modal --- */}
+      <Dialog
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogContent sx={{ textAlign: "center", position: "relative" }}>
+          {/* Close button */}
+          <IconButton
+            onClick={() => setSearchOpen(false)}
+            sx={{ position: "absolute", top: 10, right: 10 }}
           >
-            <TextField fullWidth autoFocus variant="outlined" placeholder="Search..." />
-            <IconButton
-              onClick={() => setShowSearch(false)}
-              sx={{ ml: 1 }}
-              color="error"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        </Box>
-      </Fade>
+            <CloseIcon />
+          </IconButton>
+
+          {/* Search Input */}
+          <TextField
+            autoFocus
+            placeholder="Search..."
+            fullWidth
+            sx={{
+              mt: 4,
+              "& .MuiInputBase-root": {
+                borderRadius: "30px",
+                background: "#f5f5f5",
+                px: 2,
+              },
+            }}
+          />
+        </DialogContent>
+      </Dialog>
     </>
   );
-}
+};
+
+export default Navbar;
