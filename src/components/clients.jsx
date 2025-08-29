@@ -7,12 +7,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 const ClientsSection = () => {
   const logos = [
-    "/clientsImg/1.png",
-    "/clientsImg/2.png",
-    "/clientsImg/3.png",
-    "/clientsImg/4.png",
-    "/clientsImg/5.png",
-    "/clientsImg/6.png",
+    "https://yt3.googleusercontent.com/g4a0IbVJmpT8nG3Mwqw4qqgqFLq69zFek4UtEIcmKqFkTkxRveLu-sKXWhVVq2zZI5hQXtWFLw8=s900-c-k-c0x00ffffff-no-rj",
+    "https://media.licdn.com/dms/image/v2/C4D0BAQEhGER71twt9g/company-logo_200_200/company-logo_200_200/0/1671598721329/dtc_group_logo?e=2147483647&v=beta&t=L8Nm8_xiwKaWZ2g3XDRot-5CQgXEimK4dJthUeiwv-M",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/300-300_Logo.png/800px-300-300_Logo.png",
+    "https://images.seeklogo.com/logo-png/21/1/fortis-hospitals-logo-png_seeklogo-214982.png",
+    "https://media.licdn.com/dms/image/v2/D4D0BAQFu6yL6RjuPvA/company-logo_200_200/company-logo_200_200/0/1725431660431/manipal_hospital_logo?e=2147483647&v=beta&t=4dnW7fsekffegGxCUeYIrBWyFl1EO_WxHEdJkRaGqag",
+    "https://image.pitchbook.com/c0gNO05IzzMSKIEG15PRSYHQGgo1728924994742_200x200",
   ];
 
 const settings = {
